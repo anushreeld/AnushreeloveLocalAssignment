@@ -1,0 +1,43 @@
+Hard3:
+
+Question:
+
+Given an integer n, count the total number of digit 1 appearing in all non-negative integers less than or equal to n.
+
+Solution:
+
+public int countDigitOne(int n) {
+    int ones = 0;
+    for (long m = 1; m <= n; m *= 10)
+        ones += (n/m + 8) / 10 * m + (n/m % 10 == 1 ? n%m + 1 : 0);
+    return ones;
+}
+
+
+Explanation:
+
+(n/m + 8) / 10 * m: This part calculates the count of '1' at the current digit place.
+n/m gives the count of groups of 10 (the number of times the digit place repeats).
+Adding 8 before dividing by 10 is a trick to handle rounding. This ensures that, when dividing, 
+the count is correct (i.e., it rounds up if the last digit is greater than or equal to 1).
+Multiplying by m scales the count to the current digit place.
+(n/m % 10 == 1 ? n%m + 1 : 0): This part adjusts the count for the current digit place if the digit is '1'.
+n/m % 10 == 1 checks if the current digit is '1'.
+If true, n%m + 1 adds the count of '1' for the partial group of 10 (partial repetition at the current digit place).
+If false, it adds 0.
+The ones variable accumulates the counts calculated in each iteration.
+The function returns the final count of digit '1' in the decimal representation of numbers from 1 to n.
+The approach leverages the fact that each digit place repeats every 10 numbers, and the count of '1' at each place
+is determined by the number of groups of 10 and the presence of the digit '1' in the partial group. The loop efficiently 
+processes each digit place, contributing to the overall count.
+
+
+
+
+
+
+
+
+
+
+
